@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>App con Load Balancer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.4s ease;
+      background: #6c757d;
+    }
+    .card {
+      background: white;
+      padding: 50px 60px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 500px;
+    }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .badge {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 30px;
+      color: white;
+      font-weight: bold;
+      font-size: 22px;
+      margin: 15px 0;
+      transition: background 0.4s ease;
+    }
+    .info {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 25px 0;
+      text-align: left;
+    }
+    .info p { margin: 8px 0; color: #555; }
+    button {
+      padding: 14px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: #6c757d;
+    }
+    button:hover { transform: scale(1.05); }
+    .contador {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🌐 Práctica 6</h1>
+    <div class="badge" id="badge">Cargando...</div>
+    <div class="info">
+      <p>🖥️ <strong>Hostname:</strong> <span id="hostname">-</span></p>
+      <p>🕐 <strong>Hora del servidor:</strong> <span id="hora">-</span></p>
+    </div>
+    <button onclick="cargar()" id="btn">🔄 Recargar para alternar</button>
+    <p class="contador">Peticiones realizadas: <span id="contador">0</span></p>
+  </div>
+
+  <script>
+    let contador = 0;
+    async function cargar() {
+      try {
+        const res = await fetch('/info?t=' + Date.now(), { cache: 'no-store' });
+        const data = await res.json();
+        document.getElementById('badge').textContent = '✅ ' + data.server_id;
+        document.getElementById('badge').style.background = data.color;
+        document.getElementById('hostname').textContent = data.hostname;
+        document.getElementById('hora').textContent = new Date(data.timestamp).toLocaleTimeString();
+        document.body.style.background = data.color;
+        document.getElementById('btn').style.background = data.color;
+        contador++;
+        document.getElementById('contador').textContent = contador;
+      } catch (err) {
+        document.getElementById('badge').textContent = '❌ Error de conexión';
+      }
+    }
+    cargar();
+  </script>
+</body>
+</html>

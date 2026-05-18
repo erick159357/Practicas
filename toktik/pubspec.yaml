@@ -1,0 +1,29 @@
+name: toktik_clone
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  animate_do: ^4.2.0
+  cupertino_icons: ^1.0.8
+  flutter:
+    sdk: flutter
+  intl: ^0.20.2
+  provider: ^6.1.5+1
+  share_plus: ^11.0.0
+  shared_preferences: ^2.5.3
+  video_player: 2.10.1
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/videos/

@@ -1,0 +1,30 @@
+name: memorama_game
+description: Juego de Memoria en Flutter
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sqflite: ^2.4.1
+  shared_preferences: ^2.3.3
+  path: ^1.9.0
+  flip_card: ^0.7.0
+  audioplayers: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/sounds/error.mp3
+    - assets/sounds/flip.mp3
+    - assets/sounds/win.mp3
+    - assets/sounds/success.mp3
+    - assets/images/

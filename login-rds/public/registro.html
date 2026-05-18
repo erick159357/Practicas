@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear cuenta</title>
+  <style>
+    body { font-family: Arial; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .card { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 320px; }
+    h2 { text-align: center; color: #333; }
+    input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+    button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    button:hover { background: #1e7e34; }
+    .link { text-align: center; margin-top: 15px; }
+    .msg { margin-top: 10px; text-align: center; }
+    .error { color: red; }
+    .ok { color: green; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Crear cuenta</h2>
+    <form id="registroForm">
+      <input type="text" id="nombre" placeholder="Nombre" required>
+      <input type="email" id="email" placeholder="Correo" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      <button type="submit">Registrarme</button>
+    </form>
+    <div class="msg" id="msg"></div>
+    <div class="link">¿Ya tienes cuenta? <a href="/login.html">Inicia sesión</a></div>
+  </div>
+
+  <script>
+    document.getElementById('registroForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const msgDiv = document.getElementById('msg');
+
+      const res = await fetch('/api/registro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, email, password })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        msgDiv.className = 'msg ok';
+        msgDiv.textContent = '¡Cuenta creada! Redirigiendo...';
+        setTimeout(() => window.location.href = '/login.html', 1500);
+      } else {
+        msgDiv.className = 'msg error';
+        msgDiv.textContent = data.error;
+      }
+    });
+  </script>
+</body>
+</html>
