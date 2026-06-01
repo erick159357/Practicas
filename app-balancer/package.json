@@ -1,12 +1,12 @@
 {
   "name": "app-balancer",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.x.x"
+    "express": "^4.21.2"
   }
 }
